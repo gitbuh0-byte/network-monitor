@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ISP Network Monitoring Dashboard</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Network Operations Center</p>
+          <h1>ISP Service Monitoring</h1>
+          <p class="subhead">Live simulation for subscriber uptime, latency, packet loss, incidents, and ticket routing.</p>
+        </div>
+        <div class="status-pill">
+          <span class="pulse"></span>
+          <span>Live simulation</span>
+        </div>
+      </header>
+
+      <section class="metrics-grid" aria-label="Network summary">
+        <article class="metric-card">
+          <span>Connections</span>
+          <strong id="monitoredConnections">--</strong>
+        </article>
+        <article class="metric-card">
+          <span>Avg Uptime</span>
+          <strong id="avgUptime">--</strong>
+        </article>
+        <article class="metric-card">
+          <span>Avg Latency</span>
+          <strong id="avgLatency">--</strong>
+        </article>
+        <article class="metric-card">
+          <span>Packet Loss</span>
+          <strong id="avgPacketLoss">--</strong>
+        </article>
+        <article class="metric-card alert">
+          <span>Open Incidents</span>
+          <strong id="openIncidents">--</strong>
+        </article>
+        <article class="metric-card">
+          <span>Active Tickets</span>
+          <strong id="activeTickets">--</strong>
+        </article>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="panel chart-panel">
+          <div class="panel-header">
+            <h2>Service Quality Trends</h2>
+            <span id="lastUpdated">Updating...</span>
+          </div>
+          <canvas id="qualityChart" height="132"></canvas>
+        </div>
+
+        <div class="panel chart-panel">
+          <div class="panel-header">
+            <h2>Bandwidth Utilization</h2>
+            <span>Fleet average</span>
+          </div>
+          <canvas id="bandwidthChart" height="132"></canvas>
+        </div>
+      </section>
+
+      <section class="operations-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Subscriber Connections</h2>
+            <span>Top 60 monitored lines</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Region</th>
+                  <th>Tier</th>
+                  <th>Uptime</th>
+                  <th>Latency</th>
+                  <th>Loss</th>
+                  <th>Utilization</th>
+                  <th>Health</th>
+                </tr>
+              </thead>
+              <tbody id="connectionsTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="panel incident-panel">
+          <div class="panel-header">
+            <h2>Incident Queue</h2>
+            <span>Email/SMS routed</span>
+          </div>
+          <div id="incidentList" class="incident-list"></div>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
